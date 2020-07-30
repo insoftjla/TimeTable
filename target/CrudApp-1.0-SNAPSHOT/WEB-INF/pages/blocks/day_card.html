@@ -1,0 +1,52 @@
+<div th:fragment="day_card" class="card card-sm" style="margin: 10px">
+    <div class="card-header card-header-action">
+        <h6 th:text="#{monday}"></h6>
+        <div class="d-flex align-items-center card-action-wrap">
+            <a href="#" class="inline-block refresh mr-15">
+                <i class="ion ion-md-arrow-down"></i>
+            </a>
+            <a href="#" class="inline-block full-screen">
+                <i class="ion ion-md-expand"></i>
+            </a>
+        </div>
+    </div>
+    <div class="card-body pa-0">
+        <div class="table-wrap">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead>
+                    <tr>
+                        <th th:text="#{id}">ID</th>
+                        <th th:text="#{title}">ЗАНЯТИЕ</th>
+                        <th th:text="#{type}">ТИП ЗАНЯТИЯ</th>
+                        <th th:text="#{lecturehall}">КАБИНЕТ</th>
+                        <th th:text="#{teacher}">ПРЕПОДАВАТЕЛЬ</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="timeTables : ${timetableMap.get(${n})}">
+
+                        <td th:text="${timeTables.id}">
+                        <td th:text="${timeTables.title}">
+                        <td>
+                            <select style="width: 200px">
+                                <option th:text="${timeTables.type}"></option>
+                                <option th:each="lessonType : ${lessontypelist}"
+                                        th:value="${lessonType.title}"
+                                        th:text="${lessonType.title}">
+                                </option>
+                            </select>
+                        </td>
+                        <th th:text="${timeTables.lecturehall}">lecturehall</th>
+                        <th th:text="${timeTables.teacher}">teacher</th>
+                        <td>
+                            <a href="/edituser?id=${user.id}">edit</a>
+                            <a href="/deleteuser?id=${user.id}">delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
