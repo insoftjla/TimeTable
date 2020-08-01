@@ -3,7 +3,6 @@ package ru.sd.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "timetable")
 public class TimeTable {
 
     @Id

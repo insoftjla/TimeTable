@@ -3,7 +3,6 @@ package ru.sd.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "lesson_type")
 public class LessonType {
 
     @Id

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xml:lang="ru-ru" lang="ru-ru">
+<head>
+    <title th:text="${title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<header th:replace="blocks/header :: header"></header>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <sidebar th:replace="blocks/sidebar_menu :: sidebar_menu"></sidebar>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="chartjs-size-monitor"
+                 style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                <div class="chartjs-size-monitor-expand"
+                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                </div>
+                <div class="chartjs-size-monitor-shrink"
+                     style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                </div>
+            </div>
+
+            <div th:replace="blocks/pages_title :: pages_title"></div>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <th:block
+                            th:with="strList = ${ {'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'} }">
+                        <div class="hk-row">
+                            <div class="row">
+                                <th:block th:each="mapitem, state : ${timetableMap}">
+                                    <div class="card card-sm" style="margin: 10px; font-size: 0.8rem">
+                                        <div class="card-header card-header-action">
+                                            <h6 th:text="${strList[state.count - 1]}"></h6>
+                                            <div class="d-flex align-items-center card-action-wrap">
+                                                <a href="#" class="inline-block refresh mr-15">
+                                                    <i class="ion ion-md-arrow-down"></i>
+                                                </a>
+                                                <a href="#" class="inline-block full-screen">
+                                                    <i class="ion ion-md-expand"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body pa-0">
+                                            <div class="table-wrap">
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm table-hover mb-0">
+                                                        <thead>
+                                                        <tr>
+                                                            <th th:text="#{id}">ID</th>
+                                                            <th th:text="#{title}">ЗАНЯТИЕ</th>
+                                                            <th th:text="#{type}">ТИП ЗАНЯТИЯ</th>
+                                                            <th th:text="#{lectureHall}">КАБИНЕТ</th>
+                                                            <th th:text="#{teacher}">ПРЕПОДАВАТЕЛЬ</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="timeTable : ${mapitem.value}">
+                                                            <td th:text="${timeTable.id}">
+                                                            <td th:text="${timeTable.title}">
+                                                            <td th:text="${timeTable.type}">                                                            </td>
+                                                            <th th:text="${timeTable.lecturehall}">lecturehall</th>
+                                                            <th th:text="${timeTable.teacher}">teacher</th>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>
+
+</body>
+</html>
