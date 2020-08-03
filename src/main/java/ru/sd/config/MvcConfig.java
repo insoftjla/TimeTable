@@ -17,7 +17,7 @@ public class MvcConfig implements WebMvcConfigurer {
         messageSource.setBasename("messages");
         messageSource.setFallbackToSystemLocale(false);
         messageSource.setCacheSeconds(0);
-        messageSource.setDefaultEncoding("Windows-1251");
+        messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 
