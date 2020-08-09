@@ -4,6 +4,7 @@
     <title th:text="${title}"></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -36,59 +37,59 @@
                             th:with="strList = ${ {'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'} }">
                         <div class="hk-row">
                             <div class="row">
-                                <th:block th:each="mapitem, state : ${timetableMap}">
-                                    <div class="card card-sm" style="margin: 10px; font-size: 0.8rem">
-                                        <div class="card-header card-header-action">
-                                            <h6 th:text="${strList[state.count - 1]}"></h6>
-                                            <div class="d-flex align-items-center card-action-wrap">
-                                                <a href="#" class="inline-block refresh mr-15">
-                                                    <i class="ion ion-md-arrow-down"></i>
-                                                </a>
-                                                <a href="#" class="inline-block full-screen">
-                                                    <i class="ion ion-md-expand"></i>
-                                                </a>
-                                            </div>
+                                <div class="card card-sm" style="margin: 10px; font-size: 0.8rem">
+                                    <div class="card-header card-header-action">
+                                        <div class="d-flex align-items-center card-action-wrap">
+                                            <a href="#" class="inline-block refresh mr-15">
+                                                <i class="ion ion-md-arrow-down"></i>
+                                            </a>
+                                            <a href="#" class="inline-block full-screen">
+                                                <i class="ion ion-md-expand"></i>
+                                            </a>
                                         </div>
-                                        <div class="card-body pa-0">
-                                            <div class="table-wrap">
-                                                <div class="table-responsive">
-                                                    <table class="table table-sm table-hover mb-0">
-                                                        <thead>
+                                    </div>
+                                    <div class="card-body pa-0">
+                                        <div class="table-wrap">
+                                            <div class="table-responsive">
+                                                <table class="table table-sm table-hover mb-0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th th:text="#{id}">ID</th>
+                                                        <th th:text="#{week_day}"></th>
+                                                        <th th:text="#{number_lesson}"></th>
+                                                        <th th:text="#{subject_id}"></th>
+                                                        <th th:text="#{lecture_hall_id}"></th>
+                                                        <th th:text="#{teacher_id}"></th>
+                                                        <th th:text="#{pgroup_id}"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr th:each="timeTable : ${timeTables}" th:if="${timeTables}">
+                                                        <td th:text="${timeTable.id}">
+                                                        <td th:text="${timeTable.weekDay}">
+                                                        <th th:text="${timeTable.numberLesson}"></th>
+                                                        <th th:text="${timeTable.subject?.getNameAndSubstring()}"></th>
+                                                        <th th:text="${timeTable.lectureHall?.getName()}"></th>
+                                                        <th th:text="${timeTable.teacher?.getSurnameAndInitials()}"></th>
+                                                        <th th:text="${timeTable.pgroup?.getName()}"></th>
+                                                    </tr>
                                                         <tr>
-                                                            <th th:text="#{id}">ID</th>
-                                                            <th th:text="#{title}">ЗАНЯТИЕ</th>
-                                                            <th th:text="#{type}">ТИП ЗАНЯТИЯ</th>
-                                                            <th th:text="#{lectureHall}">КАБИНЕТ</th>
-                                                            <th th:text="#{teacher}">ПРЕПОДАВАТЕЛЬ</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr th:each="timeTable : ${mapitem.value}">
-
-                                                            <td th:text="${timeTable.id}">
-                                                            <td th:text="${timeTable.title}">
+                                                            <form id="addLesson" action="#" th:action="@{/addLesson}" th:object="${timeTables}"
+                                                                  method="post"></form>
+                                                            <td></td>
+                                                            <td><input type="text" form="addLesson" name="weekDay"></td>
+                                                            <td><input type="text" form="addLesson" name="numberLesson"></td>
                                                             <td>
-                                                                <select style="width: 150px">
-                                                                    <option th:text="${timeTable.type}"></option>
-                                                                    <option th:each="lessonType : ${lessontypelist}"
-                                                                            th:value="${lessonType.title}"
-                                                                            th:text="${lessonType.title}">
-                                                                    </option>
-                                                                </select>
+                                                                <select th:replace="blocks/selects :: subjectNames"></select>
                                                             </td>
-                                                            <th th:text="${timeTable.lecturehall}">lecturehall</th>
-                                                            <th th:text="${timeTable.teacher}">teacher</th>
-                                                            <td>
-                                                                <a href="/edituser?id=${user.id}">edit</a>
-                                                            </td>
+                                                            <td><input type="submit" form="addLesson" value="add"></td>
                                                         </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
-                                </th:block>
+                                </div>
                             </div>
                         </div>
                     </th:block>

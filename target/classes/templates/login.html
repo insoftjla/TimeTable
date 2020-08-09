@@ -31,13 +31,6 @@
     <link href="signin.css" rel="stylesheet">
 </head>
 
-<!--<form th:action="@{/login}" method="post">-->
-<!--    <div><label> User Name : <input type="text" name="username"/> </label></div>-->
-<!--    <div><label> Password: <input type="password" name="password"/> </label></div>-->
-<!--    <div><input type="submit" value="Sign In"/></div>-->
-<!--</form>-->
-<!--<a href="/registration">Регистрация</a>-->
-
 <body class="text-center">
 <form th:action="@{/login}" method="post" class="form-signin">
     <img class="mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
@@ -57,8 +50,7 @@
             <input type="checkbox" value="remember-me"> Remember me
         </label>
     </div>
-    <input type="submit" value="Sign In" class="btn btn-lg btn-primary btn-block">Sign in</input>
-
+    <input type="submit" value="Sign In" class="btn btn-lg btn-primary btn-block"></input>
     <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
 </form>
 

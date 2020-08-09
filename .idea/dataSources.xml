@@ -10,5 +10,11 @@
         <property name="serverTimezone" value="Europe/Moscow" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="timetable_db@localhost" uuid="c92ba1a9-0b62-4fde-9660-d5397041bd07">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/timetable_db</jdbc-url>
+    </data-source>
   </component>
 </project>

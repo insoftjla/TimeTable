@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.sd.models.Role;
-import ru.sd.models.User;
-import ru.sd.repos.UserRepo;
+import ru.sd.models.UserLogin;
+import ru.sd.repositories.UserRepository;
 
 import java.util.Collections;
 
@@ -15,7 +15,7 @@ import java.util.Collections;
 public class AuthenticationController {
 
     @Autowired
-    private UserRepo userRepo;
+    private UserRepository userRepo;
 
     @GetMapping("/registration")
     public String registration(){
@@ -23,8 +23,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Model model){
-        User userFromDb = userRepo.findByUsername(user.getUsername());
+    public String addUser(UserLogin user, Model model){
+        UserLogin userFromDb = userRepo.findByUsername(user.getUsername());
         if (userFromDb != null){
             model.addAttribute("userExists","Пользователь уже существует!");
             return "registration";

@@ -1,0 +1,7 @@
+<link rel="stylesheet" href="style.css">
+
+<select th:fragment="subjectNames" form="addLesson" name="subject" style="width: 200px">
+    <th:block th:each="subject : ${subjects}">
+        <option th:value="${subject.getId()}" th:text="${subject.getName()}"></option>
+    </th:block>
+</select>
