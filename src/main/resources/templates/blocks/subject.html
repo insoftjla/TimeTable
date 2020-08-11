@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org" xml:lang="ru-ru" lang="ru-ru">
+
+<table th:fragment="table" class="table table-sm table-hover mb-0 table-column-width">
+    <thead>
+    <tr>
+        <th th:text="#{id}"></th>
+        <th th:text="#{subject}"></th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tr th:with="formName = addSubject">
+        <form th:id="${formName}" action="#" th:action="@{/addSubject}"
+              th:object="${subject}"
+              method="post"></form>
+    <td></td>
+    <td><input class="btn btn-sm btn-outline-secondary" style="width: 100%" type="text" th:form="${formName}" name="name"></td>
+    <td><input class="btn btn-sm btn-outline-secondary" type="submit" th:form="${formName}" value="+"></td>
+    </tr>
+    <tr th:each="subject : ${subjects}">
+        <td th:text="${subject.id}"></td>
+        <td th:text="${subject.name}"></td>
+        <td>
+            <a class="btn btn-sm btn-outline-secondary" th:href="'/deleteSubject/?id=' + ${subject.getId()}" th:text="'X'"></a>
+        </td>
+    </tr>
+
+</table>

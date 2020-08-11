@@ -36,7 +36,7 @@ public class Subject {
     }
 
     public String getNameAndSubstring() {
-        return name.length() > 20 ? name.substring(0, 20) : name;
+        return name.length() > 40 ? name.substring(0, 40) : name;
     }
 
     public void setName(String name) {

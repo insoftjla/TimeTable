@@ -1,6 +1,6 @@
-<div th:fragment="day_card" class="card card-sm" style="margin: 10px">
+<html xmlns:th="http://www.thymeleaf.org" xml:lang="ru-ru" lang="ru-ru">
+<div th:fragment="day_card" class="card" style="font-size: 0.8rem">
     <div class="card-header card-header-action">
-        <h6 th:text="#{monday}"></h6>
         <div class="d-flex align-items-center card-action-wrap">
             <a href="#" class="inline-block refresh mr-15">
                 <i class="ion ion-md-arrow-down"></i>
@@ -13,36 +13,42 @@
     <div class="card-body pa-0">
         <div class="table-wrap">
             <div class="table-responsive">
-                <table class="table table-sm table-hover mb-0">
+                <table class="table table-sm table-hover mb-0 table-column-width">
                     <thead>
                     <tr>
-                        <th th:text="#{id}">ID</th>
-                        <th th:text="#{title}">ЗАНЯТИЕ</th>
-                        <th th:text="#{type}">ТИП ЗАНЯТИЯ</th>
-                        <th th:text="#{lecturehall}">КАБИНЕТ</th>
-                        <th th:text="#{teacher}">ПРЕПОДАВАТЕЛЬ</th>
+                        <th class="text-center" th:text="#{number_lesson}"></th>
+                        <th th:text="#{subject}"></th>
+                        <th th:text="#{lecture_hall}"></th>
+                        <th th:text="#{teacher}"></th>
+                        <th th:if="${#httpServletRequest.remoteUser}"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="timeTables : ${timetableMap.get(${n})}">
-
-                        <td th:text="${timeTables.id}">
-                        <td th:text="${timeTables.title}">
+                    <tr th:each="timetable : ${lists.get(n-1)}">
                         <td>
-                            <select style="width: 200px">
-                                <option th:text="${timeTables.type}"></option>
-                                <option th:each="lessonType : ${lessontypelist}"
-                                        th:value="${lessonType.title}"
-                                        th:text="${lessonType.title}">
-                                </option>
-                            </select>
+                            <tx class="btn btn-sm btn-outline-secondary" th:text="${timetable.numberLesson}"></tx>
                         </td>
-                        <th th:text="${timeTables.lecturehall}">lecturehall</th>
-                        <th th:text="${timeTables.teacher}">teacher</th>
-                        <td>
-                            <a href="/edituser?id=${user.id}">edit</a>
-                            <a href="/deleteuser?id=${user.id}">delete</a>
+                        <td th:text="${timetable.subject?.getNameAndSubstring()}"></td>
+                        <td class="text-center" th:text="${timetable.lectureHall?.getName()}"></td>
+                        <td th:text="${timetable.teacher?.getSurnameAndInitials()}"></td>
+                        <td th:if="${#httpServletRequest.remoteUser}">
+                            <a class="btn btn-sm btn-outline-secondary"
+                               th:href="'/deleteLesson/?lessonId=' + ${timetable.getId()} + '&selectGroupId=' + ${selectGroup.getId()}"
+                               th:text="'X'"></a>
                         </td>
+                    </tr>
+                    <tr th:with="formName = ${n}" th:if="${#httpServletRequest.remoteUser}">
+                        <form th:id="${formName}" action="#" th:action="@{/addLesson}"
+                              th:object="${timetable}"
+                              method="post"></form>
+                        <input type="hidden" th:form="${formName}" th:name="weekDay" th:value="${n}">
+                        <input type="hidden" th:form="${formName}" th:name="pgroup" th:value="${selectGroup.getId()}">
+                        <td><select th:replace="blocks/selects :: numberLesson"></select></td>
+                        <td><select th:replace="blocks/selects :: subjectNames"></select></td>
+                        <td><select th:replace="blocks/selects :: lectureHallNames"></select></td>
+                        <td><select th:replace="blocks/selects :: teacherSurnameAndInitials"></select></td>
+                        <td><input class="btn btn-sm btn-outline-secondary" type="submit" th:form="${formName}"
+                                   value="+"></td>
                     </tr>
                     </tbody>
                 </table>

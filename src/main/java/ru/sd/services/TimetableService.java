@@ -1,20 +1,25 @@
 package ru.sd.services;
 
-import ru.sd.models.Subject;
-import ru.sd.models.Timetable;
+import org.springframework.data.domain.Sort;
+import ru.sd.models.*;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TimetableService {
 
-    List<Timetable> findAllByWeekDay(String weekDay);
+    List<Timetable> findByWeekDay(int weekDay, int groupId);
 
     List<Timetable> findAll();
 
-    public List<Subject> findAllSubjects();
+    List<LectureHall> findAllLectureHalls();
+
+    List<Teacher> findAllTeacher();
+
+    List<Pgroup> findAllPgroup();
+
+    Pgroup findPgroupById(int id);
 
     void addLesson(Timetable lesson);
 
-    void delete(Timetable timetable);
+    void deleteLessonById(Integer lessonId);
 }

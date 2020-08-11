@@ -1,7 +1,49 @@
-<link rel="stylesheet" href="style.css">
+<html xmlns:th="http://www.thymeleaf.org" xml:lang="ru-ru" lang="ru-ru">
 
-<select th:fragment="subjectNames" form="addLesson" name="subject" style="width: 200px">
+<select class="btn btn-sm btn-outline-secondary"
+        th:fragment="subjectNames" th:form="${formName}" name="subject" style="width: 100%">
     <th:block th:each="subject : ${subjects}">
         <option th:value="${subject.getId()}" th:text="${subject.getName()}"></option>
     </th:block>
+</select>
+
+<select class="btn btn-sm btn-outline-secondary"
+        th:fragment="lectureHallNames" th:form="${formName}" name="lectureHall" style="width: 100%">
+    <th:block th:each="lectureHall : ${lectureHalls}">
+        <option th:value="${lectureHall.getId()}" th:text="${lectureHall.getName()}"></option>
+    </th:block>
+</select>
+
+<select class="btn btn-sm btn-outline-secondary"
+        th:fragment="teacherSurnameAndInitials" th:form="${formName}" name="teacher" style="width: 100%">
+    <th:block th:each="teacher : ${teachers}">
+        <option th:value="${teacher.getId()}" th:text="${teacher.getSurnameAndInitials()}"></option>
+    </th:block>
+</select>
+
+<select class="btn btn-sm btn-outline-secondary dropdown-toggle"
+        th:fragment="pgroupNames"
+        onchange="if (this.value) top.location.href='/?selectGroupId=' + this.value"
+        th:if="${selectGroup}">
+    <option th:value="${selectGroup.getId()}" th:text="${selectGroup.getName()}"></option>
+    <option th:each="pgroup : ${pgroups}" th:value="${pgroup.getId()}" th:text="${pgroup.getName()}"></option>
+</select>
+
+<select class="btn btn-sm btn-outline-secondary"
+        th:fragment="weekDays">
+    <option th:value="1" th:text="#{monday}"></option>
+    <option th:value="2" th:text="#{tuesday}"></option>
+    <option th:value="3" th:text="#{wednesday}"></option>
+    <option th:value="4" th:text="#{thursday}"></option>
+    <option th:value="5" th:text="#{friday}"></option>
+    <option th:value="6" th:text="#{saturday}"></option>
+</select>
+
+<select class="btn btn-sm btn-outline-secondary"
+        th:fragment="numberLesson" th:form="${formName}" name="numberLesson">
+    <option th:value="1" >1</option>
+    <option th:value="2" >2</option>
+    <option th:value="3" >3</option>
+    <option th:value="4" >4</option>
+    <option th:value="5" >5</option>
 </select>

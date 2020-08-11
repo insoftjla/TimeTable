@@ -32,21 +32,6 @@ public class Timetable {
     public Timetable() {
     }
 
-    public Timetable(
-            int weekDay,
-            int numberLesson,
-            int pgroupId,
-            int subjectId,
-            int lectureHallId,
-            int teacherId) {
-        this.weekDay = weekDay;
-        this.numberLesson = numberLesson;
-//        this.pgroupId = pgroupId;
-//        this.subjectId = subjectId;
-//        this.lectureHallId = lectureHallId;
-//        this.teacherId = teacherId;
-    }
-
     public int getId() {
         return id;
     }
@@ -98,8 +83,6 @@ public class Timetable {
     public Teacher getTeacher() {
         return teacher;
     }
-
-
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;

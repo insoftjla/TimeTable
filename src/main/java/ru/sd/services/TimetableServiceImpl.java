@@ -1,11 +1,10 @@
 package ru.sd.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.sd.models.Subject;
-import ru.sd.models.Timetable;
-import ru.sd.repositories.SubjectRepository;
-import ru.sd.repositories.TimetableRepository;
+import ru.sd.models.*;
+import ru.sd.repositories.*;
 
 import java.util.List;
 
@@ -14,14 +13,17 @@ public class TimetableServiceImpl implements TimetableService {
 
     @Autowired
     private TimetableRepository timetableRepository;
-
     @Autowired
-    private SubjectRepository subjectRepository;
+    private LectureHallRepository lectureHallRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
+    @Autowired
+    private PgroupRepository pgroupRepository;
 
 
     @Override
-    public List<Timetable> findAllByWeekDay(String weekDay) {
-        return timetableRepository.findAllByWeekDay(weekDay);
+    public List<Timetable> findByWeekDay(int weekDay, int groupId) {
+        return timetableRepository.findByWeekDayAndPgroupIdOrderByNumberLesson(weekDay, groupId);
     }
 
     @Override
@@ -30,8 +32,23 @@ public class TimetableServiceImpl implements TimetableService {
     }
 
     @Override
-    public List<Subject> findAllSubjects() {
-        return subjectRepository.findAll();
+    public List<LectureHall> findAllLectureHalls() {
+        return lectureHallRepository.findAll();
+    }
+
+    @Override
+    public List<Teacher> findAllTeacher() {
+        return teacherRepository.findAll();
+    }
+
+    @Override
+    public List<Pgroup> findAllPgroup() {
+        return pgroupRepository.findAll();
+    }
+
+    @Override
+    public Pgroup findPgroupById(int id) {
+        return pgroupRepository.findById(id);
     }
 
     @Override
@@ -40,7 +57,7 @@ public class TimetableServiceImpl implements TimetableService {
     }
 
     @Override
-    public void delete(Timetable timetable) {
-        timetableRepository.delete(timetable);
+    public void deleteLessonById(Integer lessonId) {
+        timetableRepository.deleteById(lessonId);
     }
 }
